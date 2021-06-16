@@ -26,9 +26,9 @@ public class UserService {
 		UserBean bean = userDAO.select(user_login);
 		if (bean != null) {
 			if (user_pass != null && user_pass.length() != 0) {
-				byte[] pass = bean.getUser_pass();
-				byte[] temp = user_pass.getBytes();
-				if (Arrays.equals(pass, temp)) {
+				String pass = bean.getUser_pass();
+				String temp = user_pass;
+				if (pass.equals(temp)) {
 					return bean;
 				}
 			}
@@ -39,9 +39,9 @@ public class UserService {
 	public boolean changePassword(String user_login, String oldPassword, String newPassword) {
 		UserBean bean = this.login(user_login, oldPassword);
 		if (bean != null) {
-			byte[] temp = newPassword.getBytes();
+			String temp = newPassword;
 			return userDAO.update(bean.getID(), user_login, temp, bean.getUser_nicename(), 
-					bean.getEmail(), bean.getBirth(), bean.getUser_url(), bean.getUser_registered(), bean.getUser_activation_key(), 
+					bean.getUser_email(), bean.getBirth(), bean.getUser_url(), bean.getUser_registered(), bean.getUser_activation_key(), 
 					bean.getUser_status(), bean.getDisplay_name());
 		}
 		return false;

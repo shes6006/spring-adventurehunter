@@ -14,13 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import club.adventurehunter.domain.UserBean;
 import club.adventurehunter.service.UserService;
 
-//dispatcher變成controller 
-//我是後面帶位進2樓的服務員
-//我也會說多國語言喔！
-//我主要是讓客人入場前做好一些身份驗證！
 
-//LoginServlet 換成 LoginController 
-//用作登入時先做第一部校驗
 @Controller
 public class LoginController {
 	
@@ -55,11 +49,7 @@ public class LoginController {
 			return "/secure/login";
 
 		} else {
-//			HttpSession session = request.getSession();
 			session.setAttribute("user", bean);
-			
-//			String path = request.getContextPath();
-//			response.sendRedirect(path+"/index.jsp");
 			return "redirect:/index";
 		}
 		

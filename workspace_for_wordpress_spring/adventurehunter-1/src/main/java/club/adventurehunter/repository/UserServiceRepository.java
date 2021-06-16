@@ -1,6 +1,5 @@
 package club.adventurehunter.repository;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -22,9 +21,8 @@ public class UserServiceRepository {
 		if (optional.isEmpty()) {
 			UserBean bean = optional.get(); //從optional拿出bean
 			if (password != null && password.length() != 0) {
-				byte[] pass = bean.getUser_pass();
-				byte[] temp = password.getBytes();
-				if (Arrays.equals(pass, temp)) {
+				String pass = bean.getUser_pass();
+				if (pass.equals(password)) {
 					return bean;
 				}
 			}
@@ -36,8 +34,7 @@ public class UserServiceRepository {
 		UserBean bean = this.login(username, oldPassword);
 		
 		if (bean != null) {
-			byte[] temp = newPassword.getBytes();
-			bean.setUser_pass(temp);
+			bean.setUser_pass(newPassword);
 			bean = CustomerRepository.save(bean);
 			return true;
 		}	
